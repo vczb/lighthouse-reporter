@@ -1,0 +1,4 @@
+node_modules
+.tool-versions
+*.lock
+*.log
