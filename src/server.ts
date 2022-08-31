@@ -1,11 +1,13 @@
 require("dotenv").config();
 import express from "express";
+
 import SessionController from "./app/controllers/session.controller";
+import TriggerController from "./app/controllers/trigger.controller";
+import authMiddleware from "./app/middlewares/auth.middleware";
+
 import cors from "cors";
 import bodyParser from "body-parser";
-import { Error } from "./app/types";
-
-const db = require("./app/models");
+const { connectDB } = require("./database/mongodb");
 
 const app = express();
 const corsOptions = {
@@ -17,17 +19,15 @@ app.use(bodyParser.json());
 
 app.use(cors(corsOptions));
 
-db.mongoose
-  .connect(process.env.DB_URL)
-  .then(() => {
-    console.log("Successfully connect to MongoDB.");
-  })
-  .catch((err: Error) => {
-    console.error("Connection error", err);
-    process.exit();
-  });
+connectDB();
 
 app.post("/api/signup", SessionController.signup);
 app.post("/api/signin", SessionController.signin);
+app.post(
+  "/api/trigger",
+  [authMiddleware.verifyToken],
+  TriggerController.create
+);
+app.get("/api/trigger", [authMiddleware.verifyToken], TriggerController.show);
 
 app.listen(process.env.PORT || 3000);

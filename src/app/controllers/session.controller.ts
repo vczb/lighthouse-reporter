@@ -1,12 +1,11 @@
 import { Request, Response } from "express";
-import { Error, User } from "../types";
+import { Error, UserProps } from "../types";
+const User = require("../models/user.model");
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const dbCon = require("../models");
-const config = require("../config/auth.config");
 
-const User = dbCon.user;
+const config = require("../config/auth.config");
 
 const SessionController = {
   signup: async (req: Request, res: Response) => {
@@ -15,7 +14,7 @@ const SessionController = {
       password: bcrypt.hashSync(req.body.password, 8),
     });
 
-    user.save((err: Error, user: User) => {
+    user.save((err: Error, user: UserProps) => {
       if (err) {
         res.status(500).send({ message: err });
         return;
@@ -27,7 +26,7 @@ const SessionController = {
   signin: async (req: Request, res: Response) => {
     User.findOne({
       email: req.body.email,
-    }).exec((err: Error, user: User) => {
+    }).exec((err: Error, user: UserProps) => {
       if (err) {
         console.log("err", err);
         res.status(500).send({ message: err });
