@@ -5,8 +5,16 @@ const Report = require("../models/report.model");
 import { Error, GroupProps } from "../types";
 
 const TriggerController = {
-  create: (req: Request & { userId?: string }, res: Response) => {
-    const trigger = new Trigger({
+  create: async (req: Request & { userId?: string }, res: Response) => {
+    const { name, pages } = req.body;
+
+    if (!name || !pages.length || !req?.userId) {
+      return res
+        .status(400)
+        .send({ message: "Invalid json message received." });
+    }
+
+    const trigger = await new Trigger({
       user: req.userId,
       name: req.body.name,
       pages: req.body.pages,
@@ -68,7 +76,7 @@ const TriggerController = {
 
     const repport = await Report({
       user: req.userId,
-      trigger: trigger[0].id,
+      name: trigger[0].name,
       data,
     });
 

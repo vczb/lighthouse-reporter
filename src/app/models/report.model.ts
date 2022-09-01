@@ -7,7 +7,7 @@ const Report = mongoose.model(
   new mongoose.Schema(
     {
       user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-      trigger: { type: Schema.Types.ObjectId, ref: "Trigger", required: true },
+      name: String,
       data: [
         {
           url: String,
