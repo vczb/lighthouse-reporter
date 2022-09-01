@@ -19,6 +19,20 @@ const verifyToken = (req: any, res: Response, next: NextFunction) => {
   });
 };
 
+const verifyContentType = (req: any, res: Response, next: NextFunction) => {
+  let token = req.headers["content-type"];
+
+  if (!token) {
+    return res.status(415).send({
+      message:
+        "'Content-type' header is not valid. Only 'application/json' is allowed.",
+    });
+  }
+
+  next();
+};
+
 export default {
   verifyToken,
+  verifyContentType,
 };
