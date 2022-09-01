@@ -29,5 +29,10 @@ app.post(
   TriggerController.create
 );
 app.get("/api/trigger", [authMiddleware.verifyToken], TriggerController.show);
+app.post(
+  "/api/trigger/dispatch",
+  [authMiddleware.verifyToken],
+  TriggerController.dispatch
+);
 
 app.listen(process.env.PORT || 3000);
