@@ -177,9 +177,10 @@ Run the project
   }
   ```
 
-## TODO:
+## Contributing
 
-- Add unit tests with jest
-- Protect route attributes with celebrate
-- Refactor esmodules imports
-- Add support to webhook callback after trigger
+You can contribute to this project by opening an issue or creating a pull request.
+
+## License
+
+This project is licensed under the [MIT](./LICENSE) License.
