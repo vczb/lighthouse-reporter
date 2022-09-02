@@ -20,7 +20,10 @@ const SessionController = {
         return;
       }
 
-      res.send({ message: "User was registered successfully!", user });
+      res.send({
+        message: "User was registered successfully!",
+        user: { id: user.id, email: user.email },
+      });
     });
   },
   signin: async (req: Request, res: Response) => {
