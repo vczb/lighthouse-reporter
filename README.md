@@ -158,19 +158,33 @@ Run the project
 - Reponse:
   ```json
   {
-    "trigger": [
+    "report": [
       {
-        "_id": "631017c73b928313f888e557",
-        "user": "63101417561a7dcc826ff500",
-        "name": "github",
-        "pages": ["https://github.com/vczb"],
-        "__v": 0
-      },
-      {
-        "_id": "631142fb90071b61f7cf50c9",
+        "_id": "631143d30b4556af51696e53",
         "user": "63101417561a7dcc826ff500",
         "name": "site",
-        "pages": ["https://vczb.github.io/", "https://vczb.github.io/about"],
+        "data": [
+          {
+            "url": "https://vczb.github.io/",
+            "accessibility": "78",
+            "best": "92",
+            "performance": "97",
+            "pwa": "30",
+            "seo": "100",
+            "_id": "631143d30b4556af51696e54"
+          },
+          {
+            "url": "https://vczb.github.io/about",
+            "accessibility": "67",
+            "best": "92",
+            "performance": "93",
+            "pwa": "20",
+            "seo": "100",
+            "_id": "631143d30b4556af51696e55"
+          }
+        ],
+        "createdAt": "2022-09-01T23:44:19.969Z",
+        "updatedAt": "2022-09-01T23:44:19.969Z",
         "__v": 0
       }
     ]
