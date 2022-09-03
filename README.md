@@ -15,7 +15,8 @@ Install all dependencies
 Add the `.env` variables
 
 ```bash
-DB_URL=mongodb://lr_app:lr_app@localhost:27017/lr_db
+DB_URL=mongodb://<db_user>:<db_pass>@localhost:27017/<db_name>
+DB_URL_DEV=mongodb://<db_user_dev>:<db_pass_dev>@localhost:27017/<db_name_dev>
 SECRET_KEY=lr-secret-key
 ```
 

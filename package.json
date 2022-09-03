@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
+    "start": "NODE_ENV=production ts-node ./src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "vczb <viniciuszucatti@gmail.com>",
