@@ -3,6 +3,9 @@ import express from "express";
 import routes from "./routes"
 import cors from "cors";
 import bodyParser from "body-parser";
+import helmet from "helmet";
+import mongoSanitize from "express-mongo-sanitize";
+import xss from "xss-clean";
 
 const { connectDB } = require("./database/mongodb");
 
@@ -13,6 +16,16 @@ const corsOptions = {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+//set security headers
+app.use(helmet())
+
+//security against NoSQL Query Injection
+app.use(mongoSanitize());
+
+//Data sanitization against XSS attacks
+app.use(xss());
+
 
 app.use(cors(corsOptions));
 
