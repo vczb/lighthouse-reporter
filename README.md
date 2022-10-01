@@ -92,9 +92,7 @@ Run the project
     "trigger": {
       "user": "63101417561a7dcc826ff500",
       "name": "site",
-      "pages": ["https://vczb.github.io/", "https://vczb.github.io/about"],
-      "_id": "631148f641a03f4a480263b0",
-      "__v": 0
+      "pages": ["https://vczb.github.io/", "https://vczb.github.io/about"]
     }
   }
   ```
@@ -132,18 +130,14 @@ Run the project
   {
     "trigger": [
       {
-        "_id": "631017c73b928313f888e557",
         "user": "63101417561a7dcc826ff500",
         "name": "github",
-        "pages": ["https://github.com/vczb"],
-        "__v": 0
+        "pages": ["https://github.com/vczb"]
       },
       {
-        "_id": "631142fb90071b61f7cf50c9",
         "user": "63101417561a7dcc826ff500",
         "name": "site",
-        "pages": ["https://vczb.github.io/", "https://vczb.github.io/about"],
-        "__v": 0
+        "pages": ["https://vczb.github.io/", "https://vczb.github.io/about"]
       }
     ]
   }
@@ -161,7 +155,6 @@ Run the project
   {
     "report": [
       {
-        "_id": "631143d30b4556af51696e53",
         "user": "63101417561a7dcc826ff500",
         "name": "site",
         "data": [
@@ -185,8 +178,7 @@ Run the project
           }
         ],
         "createdAt": "2022-09-01T23:44:19.969Z",
-        "updatedAt": "2022-09-01T23:44:19.969Z",
-        "__v": 0
+        "updatedAt": "2022-09-01T23:44:19.969Z"
       }
     ]
   }

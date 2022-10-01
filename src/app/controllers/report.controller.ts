@@ -17,7 +17,7 @@ const ReportController = {
         return res.status(404).send({ message: "Report Not found." });
       }
 
-      res.status(200).send({
+      res.status(200).json({
         report,
       });
     });

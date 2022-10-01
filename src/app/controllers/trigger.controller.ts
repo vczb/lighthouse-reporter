@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
+import { Document } from "mongoose";
 import generateLighthoseReport from "../../services/lighthouse";
+import { Error, GroupProps } from "../types";
 const Trigger = require("../models/trigger.model");
 const Report = require("../models/report.model");
-import { Error, GroupProps } from "../types";
 
 const TriggerController = {
   create: async (req: Request & { userId?: string }, res: Response) => {
@@ -20,13 +21,13 @@ const TriggerController = {
       pages: req.body.pages,
     });
 
-    trigger.save((err: Error, trigger: GroupProps) => {
+    trigger.save((err: Error, trigger: Document<GroupProps>) => {
       if (err) {
         res.status(500).send({ message: err });
         return;
       }
 
-      res.send({
+      res.json({
         message: "Trigger was create successfully!",
         trigger,
       });
@@ -35,7 +36,7 @@ const TriggerController = {
   show: (req: Request & { userId?: string }, res: Response) => {
     Trigger.find({
       user: req.userId,
-    }).exec((err: Error, trigger: any) => {
+    }).exec((err: Error, trigger: Document<GroupProps>[]) => {
       if (err) {
         console.log("err", err);
         res.status(500).send({ message: err });
@@ -46,7 +47,7 @@ const TriggerController = {
         return res.status(404).send({ message: "Trigger Not found." });
       }
 
-      res.status(200).send({
+      res.status(200).json({
         trigger,
       });
     });

@@ -19,7 +19,15 @@ const Report = mongoose.model(
         },
       ],
     },
-    { timestamps: true }
+    { 
+      timestamps: true,
+      toJSON: {
+        transform: function (_, ret) {
+          delete ret.__v;
+          delete ret._id;
+        }
+      }
+    }
   )
 );
 

@@ -14,6 +14,13 @@ const Trigger = mongoose.model(
       type: [String],
       required: true,
     },
+  }, {
+    toJSON: {
+      transform: function (_, ret) {
+        delete ret.__v;
+        delete ret._id;
+      }
+    }
   })
 );
 
