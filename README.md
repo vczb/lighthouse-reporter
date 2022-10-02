@@ -82,7 +82,8 @@ Run the project
   ```json
   {
     "name": "site",
-    "pages": ["https://vczb.github.io/", "https://vczb.github.io/about"]
+    "pages": ["https://vczb.github.io/", "https://vczb.github.io/about"],
+    "callbackUrl": "https://my-site.com/optional/callback"
   }
   ```
 - Reponse:
@@ -92,7 +93,8 @@ Run the project
     "trigger": {
       "user": "63101417561a7dcc826ff500",
       "name": "site",
-      "pages": ["https://vczb.github.io/", "https://vczb.github.io/about"]
+      "pages": ["https://vczb.github.io/", "https://vczb.github.io/about"],
+      "callbackUrl": "https://my-site.com/optional/callback"
     }
   }
   ```
@@ -132,12 +134,14 @@ Run the project
       {
         "user": "63101417561a7dcc826ff500",
         "name": "github",
-        "pages": ["https://github.com/vczb"]
+        "pages": ["https://github.com/vczb"],
+        "callbackUrl": "https://my-site.com/optional/callback"
       },
       {
         "user": "63101417561a7dcc826ff500",
         "name": "site",
-        "pages": ["https://vczb.github.io/", "https://vczb.github.io/about"]
+        "pages": ["https://vczb.github.io/", "https://vczb.github.io/about"],
+        "callbackUrl": "https://my-site.com/optional/callback"
       }
     ]
   }

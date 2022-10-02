@@ -14,6 +14,10 @@ const Trigger = mongoose.model(
       type: [String],
       required: true,
     },
+    callbackUrl: {
+      type: String,
+      required: false,
+    },
   }, {
     toJSON: {
       transform: function (_, ret) {

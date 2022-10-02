@@ -13,3 +13,18 @@ export type GroupProps = {
   name: string;
   pages: string[];
 };
+
+export type TriggerCreateDto = {
+  name: string;
+  pages: string[];
+  callbackUrl?: string;
+}
+
+export type TriggerDispatchDto = {
+  name: string;
+}
+
+export interface TypedRequestBody<T> extends Express.Request {
+  userId?: string;
+  body: T;
+}
