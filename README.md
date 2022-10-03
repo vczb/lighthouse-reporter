@@ -208,7 +208,7 @@ Since the clone was downloaded into a subdirectory of your working directory, yo
 For example,
 
 ```bash
-cd card-memory-game
+cd <name of repository>
 ```
 
 ### Step 4: Pull the latest changes from upstream into your local repository
@@ -233,8 +233,6 @@ For example,
 git checkout -b <new branch name>
 ```
 
-If you want to make the svlet version of the game
-
 Use git branch to show your local branches. You should see your new branch as well as "main", and your new branch should have an asterisk next to it to indicate that it's "checked out" (meaning that you're working in it).
   
 ```bash
@@ -249,7 +247,6 @@ Use a text editor or IDE to make the changes you planned to the files in your lo
 
 After you make a set of changes, use git add -A or git add . to stage your changes and `git commit -m "DESCRIPTION OF CHANGES"` to commit them.
 
-For example, `commit -m "create base for svelte game version"` for one of my commits.
   
  ```bash
 git add .
