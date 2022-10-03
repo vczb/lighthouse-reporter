@@ -191,7 +191,6 @@ You can contribute to this project by opening an issue or creating a pull reques
 ### Step 1: Fork the project repository
 
 Fork the repository to you GitHub
-![fork](https://github.com/GeraAlcantara/cards-memory-game/blob/main/img/fork.jpg?raw=true)
 
 ### Step 2: Clone your fork
 
@@ -201,7 +200,6 @@ While still in your repository, click on the code drop down menu. Now you can ei
 git clone <https url>
 ```
 
-![clone example](https://github.com/GeraAlcantara/cards-memory-game/blob/main/img/clone.jpg?raw=true)
 
 ### Step 3: Navigate to your local repository
 
@@ -232,7 +230,7 @@ Use git checkout -b BRANCH_NAME to create a new branch and then immediately swit
 For example,
 
 ```bash
-git checkout -b svelte-game
+git checkout -b <new branch name>
 ```
 
 If you want to make the svlet version of the game
@@ -264,7 +262,7 @@ If you are making multiple sets of changes, it's a good practice to make a commi
 
 When you are done making all of your changes, upload these changes to your fork using git push origin BRANCH_NAME. This "pushes" your changes to the "BRANCH_NAME" branch of the "origin" (which is your fork on GitHub).
 
-For example: `git push origin svelte-game`
+For example: `git push origin <branch name>`
   
   ```bash
 git push origin <BRANCH_NAME>
