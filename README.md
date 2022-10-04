@@ -188,9 +188,6 @@ Run the project
   }
   ```
 
-## Contributing
-
-You can contribute to this project by opening an issue or creating a pull request.
 
 ## License
 
