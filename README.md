@@ -188,6 +188,11 @@ Run the project
   }
   ```
 
+## Contributing
+
+You can contribute to this project by opening an issue or creating a pull request.
+
+Check the best practices on the [CONTRIBUTING](./CONTRIBUTING) file.
 
 ## License
 
