@@ -1,13 +1,15 @@
 import { Request, Response } from "express";
 import { Document } from "mongoose";
+import http from 'node:http';
 import generateLighthoseReport from "../../services/lighthouse";
-import { Error, GroupProps } from "../types";
+import { Error, GroupProps, TriggerCreateDto, TriggerDispatchDto, TypedRequestBody } from "../types";
+import { isValidUrl } from "../utils/validations";
 const Trigger = require("../models/trigger.model");
 const Report = require("../models/report.model");
 
 const TriggerController = {
-  create: async (req: Request & { userId?: string }, res: Response) => {
-    const { name, pages } = req.body;
+  create: async (req: TypedRequestBody<TriggerCreateDto>, res: Response) => {
+    const { name, pages, callbackUrl } = req.body;
 
     if (!name || !pages.length || !req?.userId) {
       return res
@@ -15,10 +17,17 @@ const TriggerController = {
         .send({ message: "Invalid json message received." });
     }
 
+    if (callbackUrl && !isValidUrl(callbackUrl)) {
+      return res
+        .status(400)
+        .json({ message: "Invalid callback url received." });
+    }
+
     const trigger = await new Trigger({
       user: req.userId,
-      name: req.body.name,
-      pages: req.body.pages,
+      name,
+      pages,
+      callbackUrl,
     });
 
     trigger.save((err: Error, trigger: Document<GroupProps>) => {
@@ -52,7 +61,7 @@ const TriggerController = {
       });
     });
   },
-  dispatch: async (req: Request & { userId?: string }, res: Response) => {
+  dispatch: async (req: TypedRequestBody<TriggerDispatchDto>, res: Response) => {
     const trigger = await Trigger.find({
       user: req.userId,
       name: req.body.name,
@@ -89,6 +98,28 @@ const TriggerController = {
       .catch((err: Error) => {
         console.log("err", err);
       });
+
+    if (trigger[0].callbackUrl) {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Content-Length": data.length,
+        },
+
+      };
+      const webhook = http.request(trigger[0].callbackUrl, options, (res) => {
+        console.log(`Done triggering webhook callback statusCode: ${res.statusCode}`);
+      });
+
+      console.log(`Triggering webhook callback to: ${trigger[0].callbackUrl}`);
+
+      webhook.write(JSON.stringify(data));
+
+      webhook.on("error", (error) => {
+        console.error(error);
+      });
+    }
   },
 };
 
