@@ -192,7 +192,7 @@ Run the project
 
 You can contribute to this project by opening an issue or creating a pull request.
 
-Check the best practices on the [CONTRIBUTING](./CONTRIBUTING) file.
+Check the best practices on the [CONTRIBUTING](./CONTRIBUTING.md) file.
 
 ## License
 
