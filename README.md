@@ -1,4 +1,6 @@
-# Lighthouse reporter
+<p align="center">
+  <img alt="Lighthouse reporter" src="./Logo.png" width="500"/>
+</p>
 
 Generate lighthouse reports and save it in a mongo database.
 
