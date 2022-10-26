@@ -25,6 +25,11 @@ routes.post(
   [authMiddleware.verifyToken, authMiddleware.verifyContentType],
   TriggerController.dispatch
 );
+routes.post(
+  "/trigger/delete",
+  [authMiddleware.verifyToken, authMiddleware.verifyContentType],
+  TriggerController.delete
+);
 routes.get(
   "/report/show",
   [authMiddleware.verifyToken, authMiddleware.verifyContentType],

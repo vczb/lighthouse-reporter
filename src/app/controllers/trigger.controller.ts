@@ -121,6 +121,25 @@ const TriggerController = {
       });
     }
   },
+  delete: async (req: TypedRequestBody<TriggerDispatchDto>, res: Response) => {
+    await Trigger.deleteOne({
+      user: req.userId,
+      name: req.body.name,
+    })
+      .then((response: any) => {
+        if (response.deletedCount > 0) {
+          return res
+            .status(200)
+            .send({ message: "Trigger deleted successfully." });
+        } else {
+          res.status(404).send({ message: "Trigger Not found." });
+        }
+      })
+      .catch((err: Error) => {
+        console.log("err", err);
+        return res.status(500).send({ message: err });
+      });
+  },
 };
 
 export default TriggerController;
