@@ -149,6 +149,27 @@ Run the project
   }
   ```
 
+**Delete trigger**
+
+- Method: `POST`
+- URL: `/api/trigger/delete`
+- Header:
+  - `Content-Type: application/json`
+  - `x-access-token: XxxXXXXXxx`
+- Body:
+  ```json
+  {
+    "name": "site"
+  }
+  ```
+- Reponse:
+  ```json
+  {
+    "ok": true,
+    "message": "Trigger was deleted successfully"
+  }
+  ```
+
 **Show report**
 
 - Method: `GET`
