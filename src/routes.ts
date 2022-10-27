@@ -30,6 +30,11 @@ routes.post(
   [authMiddleware.verifyToken, authMiddleware.verifyContentType],
   TriggerController.delete
 );
+routes.post(
+  "/trigger/edit/:name",
+  [authMiddleware.verifyToken, authMiddleware.verifyContentType],
+  TriggerController.edit
+);
 routes.get(
   "/report/show",
   [authMiddleware.verifyToken, authMiddleware.verifyContentType],

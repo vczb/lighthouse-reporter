@@ -140,6 +140,45 @@ const TriggerController = {
         return res.status(500).send({ message: err });
       });
   },
+  edit: async (req: Request & { userId?: string }, res: Response) => {
+    const data: Partial<TriggerCreateDto> = req.body;
+
+    if (!data?.name && !data?.pages?.length && !data?.callbackUrl) {
+      return res
+        .status(400)
+        .send({ message: "Invalid json message received." });
+    }
+
+    if (data.callbackUrl && !isValidUrl(data.callbackUrl)) {
+      return res
+        .status(400)
+        .json({ message: "Invalid callback url received." });
+    }
+
+    const trigger = await Trigger.find({
+      user: req.userId,
+      name: req.params.name,
+    }).catch((err: Error) => {
+      console.log("err", err);
+      res.status(500).send({ message: err });
+      return;
+    });
+
+    if (!trigger?.length) {
+      return res.status(404).send({ message: "Trigger Not found." });
+    }
+
+    await Trigger.updateOne({ user: req.userId, name: req.params.name }, data)
+      .then(() => {
+        return res
+          .status(200)
+          .send({ message: "Trigger was edited successfully." });
+      })
+      .catch((err: Error) => {
+        console.log("err", err);
+        return res.status(500).send({ message: err });
+      });
+  },
 };
 
 export default TriggerController;
