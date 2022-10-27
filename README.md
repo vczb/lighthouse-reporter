@@ -170,6 +170,34 @@ Run the project
   }
   ```
 
+**Edit trigger**
+
+- Method: `POST`
+- URL: `/api/trigger/edit/name`
+- Header:
+  - `Content-Type: application/json`
+  - `x-access-token: XxxXXXXXxx`
+- Body:
+  ```json
+  {
+    "name": "site-updated",
+    "pages": ["https://vczb.github.io/", "https://vczb.github.io/about"],
+    "callbackUrl": "https://my-site.com/optional/callback"
+  }
+  ```
+- Reponse:
+  ```json
+  {
+    "message": "Trigger was edited successfully!",
+    "trigger": {
+      "user": "63101417561a7dcc826ff500",
+      "name": "site-updated",
+      "pages": ["https://vczb.github.io/", "https://vczb.github.io/about"],
+      "callbackUrl": "https://my-site.com/optional/callback"
+    }
+  }
+  ```
+
 **Show report**
 
 - Method: `GET`
