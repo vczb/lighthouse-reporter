@@ -5,6 +5,7 @@ import SessionController from "./app/controllers/session.controller";
 import TriggerController from "./app/controllers/trigger.controller";
 import ReportController from "./app/controllers/report.controller";
 import authMiddleware from "./app/middlewares/auth.middleware";
+import UserController from "./app/controllers/user.controller";
 
 
 routes.post("/signup", SessionController.signup);
@@ -39,6 +40,16 @@ routes.get(
   "/report/show",
   [authMiddleware.verifyToken, authMiddleware.verifyContentType],
   ReportController.show
+);
+routes.post(
+  "/user/delete",
+  [authMiddleware.verifyToken, authMiddleware.verifyContentType],
+  UserController.delete
+);
+routes.post(
+  "/user/edit",
+  [authMiddleware.verifyToken, authMiddleware.verifyContentType],
+  UserController.edit
 );
 
 

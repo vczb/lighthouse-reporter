@@ -239,6 +239,47 @@ Run the project
   }
   ```
 
+  **Delete user**
+
+- Method: `POST`
+- URL: `/api/user/delete`
+- Header:
+  - `Content-Type: application/json`
+  - `x-access-token: XxxXXXXXxx`
+- Body:
+  ```json
+  {}
+  ```
+- Reponse:
+  ```json
+  {
+    "ok": true,
+    "message": "User was deleted successfully"
+  }
+  ```
+
+**Edit user**
+
+- Method: `POST`
+- URL: `/api/trigger/edit`
+- Header:
+  - `Content-Type: application/json`
+  - `x-access-token: XxxXXXXXxx`
+- Body:
+  ```json
+  {
+    "email": "email@test.com",
+    "password": "123456",
+  }
+  ```
+- Reponse:
+  ```json
+  {
+    "ok": true,
+    "message": "User was edited successfully!",
+  }
+  ```
+
 ## Contributing
 
 You can contribute to this project by opening an issue or creating a pull request.
