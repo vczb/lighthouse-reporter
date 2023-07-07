@@ -261,7 +261,7 @@ Run the project
 **Edit user**
 
 - Method: `POST`
-- URL: `/api/trigger/edit`
+- URL: `/api/user/edit`
 - Header:
   - `Content-Type: application/json`
   - `x-access-token: XxxXXXXXxx`

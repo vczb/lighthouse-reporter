@@ -1,66 +1,41 @@
 import { Request, Response } from "express";
-import { Error, UserProps } from "../types";
-const User = require("../models/user.model");
-
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-
-const config = require("../config/auth.config");
+import { User } from "../models/user.model";
 
 const SessionController = {
   signup: async (req: Request, res: Response) => {
-    const user = new User({
-      email: req.body.email,
-      password: bcrypt.hashSync(req.body.password, 8),
-    });
+    try {
+      const { email, password } = req.body;
 
-    user.save((err: Error, user: UserProps) => {
-      if (err) {
-        res.status(500).send({ message: err });
-        return;
-      }
+      const result = await User.create(email, password);
 
       res.send({
         message: "User was registered successfully!",
-        user: { id: user.id, email: user.email },
+        user: { id: result["_id"], email },
       });
-    });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send(error);
+    }
   },
   signin: async (req: Request, res: Response) => {
-    User.findOne({
-      email: req.body.email,
-    }).exec((err: Error, user: UserProps) => {
-      if (err) {
-        console.log("err", err);
-        res.status(500).send({ message: err });
-        return;
+    try {
+      const { email, password } = req.body;
+
+      if (!email || !password) {
+        res.status(404).send({ message: "Invalid params" });
       }
 
-      if (!user) {
-        return res.status(404).send({ message: "User Not found." });
+      const result = await User.authenticate(email, password);
+
+      if (result && result?.accessToken) {
+        return res.status(200).send(result);
       }
 
-      const passwordIsValid = bcrypt.compareSync(
-        req.body.password,
-        user.password
-      );
-
-      if (!passwordIsValid) {
-        return res.status(401).send({
-          accessToken: null,
-          message: "Invalid Password!",
-        });
-      }
-
-      const token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 86400, // 24 hours
-      });
-
-      res.status(200).send({
-        email: user.email,
-        accessToken: token,
-      });
-    });
+      return res.status(404).send({ message: "Failed to authenticate" });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send(error);
+    }
   },
 };
 
