@@ -173,7 +173,7 @@ Run the project
 **Edit trigger**
 
 - Method: `POST`
-- URL: `/api/trigger/edit/name`
+- URL: `/api/trigger/edit/<TRIGGER-NAME>`
 - Header:
   - `Content-Type: application/json`
   - `x-access-token: XxxXXXXXxx`
@@ -261,7 +261,7 @@ Run the project
 **Edit user**
 
 - Method: `POST`
-- URL: `/api/trigger/edit`
+- URL: `/api/user/edit`
 - Header:
   - `Content-Type: application/json`
   - `x-access-token: XxxXXXXXxx`
