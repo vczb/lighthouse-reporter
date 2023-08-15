@@ -3,9 +3,10 @@ import { Document } from "mongoose";
 import http from 'node:http';
 import generateLighthoseReport from "../../services/lighthouse";
 import { Error, GroupProps, TriggerCreateDto, TriggerDispatchDto, TypedRequestBody } from "../types";
+import Trigger from "../models/trigger.model";
+import Report from "../models/report.model";
 import { isValidUrl } from "../utils/validations";
-const Trigger = require("../models/trigger.model");
-const Report = require("../models/report.model");
+
 
 const TriggerController = {
   create: async (req: TypedRequestBody<TriggerCreateDto>, res: Response) => {
@@ -29,7 +30,7 @@ const TriggerController = {
       pages,
       callbackUrl,
     });
-
+    // @ts-expect-error
     trigger.save((err: Error, trigger: Document<GroupProps>) => {
       if (err) {
         res.status(500).send({ message: err });
@@ -44,7 +45,7 @@ const TriggerController = {
   },
   show: (req: Request & { userId?: string }, res: Response) => {
     Trigger.find({
-      user: req.userId,
+      user: req.userId, // @ts-expect-error
     }).exec((err: Error, trigger: Document<GroupProps>[]) => {
       if (err) {
         console.log("err", err);
@@ -83,7 +84,8 @@ const TriggerController = {
     const data = await generateLighthoseReport(trigger[0].pages);
 
     console.log("Report data:\n", data);
-
+    
+    // @ts-expect-error
     const repport = await Report({
       user: req.userId,
       name: trigger[0].name,
@@ -108,6 +110,7 @@ const TriggerController = {
         },
 
       };
+
       const webhook = http.request(trigger[0].callbackUrl, options, (res) => {
         console.log(`Done triggering webhook callback statusCode: ${res.statusCode}`);
       });

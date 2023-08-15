@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Error, TypedRequestBody, UserProps } from "../types";
-const bcrypt = require("bcryptjs");
-const User = require("../models/user.model");
+import User from "../models/user.model";
+import bcrypt from 'bcryptjs'
 
 const UserController = {
   delete: async (req: Request & { userId?: string }, res: Response) => {

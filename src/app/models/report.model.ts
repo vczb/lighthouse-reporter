@@ -19,16 +19,18 @@ const Report = mongoose.model(
         },
       ],
     },
-    { 
+    {
       timestamps: true,
       toJSON: {
         transform: function (_, ret) {
           delete ret.__v;
           delete ret._id;
-        }
-      }
+        },
+      },
     }
   )
 );
 
-module.exports = Report;
+// module.exports = Report;
+
+export default Report;

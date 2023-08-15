@@ -28,4 +28,4 @@ const Trigger = mongoose.model(
   })
 );
 
-module.exports = Trigger;
+export default Trigger;

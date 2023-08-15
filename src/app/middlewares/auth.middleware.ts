@@ -1,7 +1,6 @@
 import { NextFunction, Response } from "express";
-
-const jwt = require("jsonwebtoken");
-const config = require("../config/auth.config.ts");
+import { authConfig } from "../config/auth.config";
+import jwt from 'jsonwebtoken'
 
 const verifyToken = (req: any, res: Response, next: NextFunction) => {
   let token = req.headers["x-access-token"];
@@ -9,8 +8,8 @@ const verifyToken = (req: any, res: Response, next: NextFunction) => {
   if (!token) {
     return res.status(403).send({ message: "No token provided!" });
   }
-
-  jwt.verify(token, config.secret, (err: Error, decoded: any) => {
+  // @ts-expect-error
+  jwt.verify(token, authConfig.secret, (err: Error, decoded: any) => {
     if (err) {
       return res.status(401).send({ message: "Unauthorized!" });
     }

@@ -1,11 +1,10 @@
 import { Request, Response } from "express";
 import { Error, UserProps } from "../types";
-const User = require("../models/user.model");
+import User from "../models/user.model";
+import { authConfig } from "../config/auth.config";
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-
-const config = require("../config/auth.config");
 
 const SessionController = {
   signup: async (req: Request, res: Response) => {
@@ -13,7 +12,8 @@ const SessionController = {
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 8),
     });
-
+    
+    // @ts-expect-error
     user.save((err: Error, user: UserProps) => {
       if (err) {
         res.status(500).send({ message: err });
@@ -28,7 +28,7 @@ const SessionController = {
   },
   signin: async (req: Request, res: Response) => {
     User.findOne({
-      email: req.body.email,
+      email: req.body.email, // @ts-expect-error
     }).exec((err: Error, user: UserProps) => {
       if (err) {
         console.log("err", err);
@@ -52,7 +52,7 @@ const SessionController = {
         });
       }
 
-      const token = jwt.sign({ id: user.id }, config.secret, {
+      const token = jwt.sign({ id: user.id }, authConfig.secret, {
         expiresIn: 86400, // 24 hours
       });
 

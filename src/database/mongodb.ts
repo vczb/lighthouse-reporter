@@ -1,12 +1,16 @@
 /* eslint-disable no-console */
-const mongoose = require("mongoose");
-require("dotenv").config();
+import mongoose from 'mongoose'
+import dotenv from 'dotenv'
+dotenv.config();
 
 const isProd = process.env.NODE_ENV === "production";
 
 const connectDB = async () => {
+
+  const uri = isProd ? process.env.DB_URL : process.env.DB_URL_DEV 
+
   mongoose
-    .connect(isProd ? process.env.DB_URL : process.env.DB_URL_DEV)
+    .connect(uri || '')
     .then(() => {
       console.log(
         `Successfully connect to ${
@@ -20,4 +24,4 @@ const connectDB = async () => {
     });
 };
 
-module.exports = { connectDB };
+export { connectDB };
