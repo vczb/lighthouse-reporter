@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-const Report = require("../models/report.model");
+import Report from "../models/report.model";
 
 const ReportController = {
   show: (req: Request & { userId?: string }, res: Response) => {
     Report.find({
       user: req.userId,
       name: req.query.name,
-    }).exec((err: Error, report: any) => {
+    }).exec((err: any, report: any) => {
       if (err) {
         console.log("err", err);
         res.status(500).send({ message: err });

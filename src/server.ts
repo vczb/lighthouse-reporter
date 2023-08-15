@@ -1,10 +1,12 @@
-require("dotenv").config();
+import dotenv from "dotenv"
+
 import express from "express";
 import routes from "./routes"
 import cors from "cors";
 import bodyParser from "body-parser";
+import { connectDB } from './database/mongodb'
 
-const { connectDB } = require("./database/mongodb");
+dotenv.config();
 
 const app = express();
 const corsOptions = {

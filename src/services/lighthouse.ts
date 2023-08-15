@@ -1,8 +1,9 @@
-const lighthouse = require("lighthouse");
-const chromeLauncher = require("chrome-launcher");
+// @ts-expect-error
+import lighthouse from 'lighthouse' 
+import * as ChromeLauncher from 'chrome-launcher';
 
 const generateLighthoseReport = async (urls: string[]) => {
-  const chrome = await chromeLauncher.launch({ chromeFlags: ["--headless"] });
+  const chrome = await ChromeLauncher.launch({ chromeFlags: ["--headless"] });
   const options = {
     logLevel: "info",
     output: "json",
