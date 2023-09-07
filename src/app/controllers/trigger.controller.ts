@@ -1,12 +1,18 @@
 import { Request, Response } from "express";
 import { Document } from "mongoose";
-import http from 'node:http';
+import http from "node:http";
+import https from "node:https";
 import generateLighthoseReport from "../../services/lighthouse";
-import { Error, GroupProps, TriggerCreateDto, TriggerDispatchDto, TypedRequestBody } from "../types";
+import {
+  Error,
+  GroupProps,
+  TriggerCreateDto,
+  TriggerDispatchDto,
+  TypedRequestBody,
+} from "../types";
 import Trigger from "../models/trigger.model";
 import Report from "../models/report.model";
 import { isValidUrl } from "../utils/validations";
-
 
 const TriggerController = {
   create: async (req: TypedRequestBody<TriggerCreateDto>, res: Response) => {
@@ -62,7 +68,10 @@ const TriggerController = {
       });
     });
   },
-  dispatch: async (req: TypedRequestBody<TriggerDispatchDto>, res: Response) => {
+  dispatch: async (
+    req: TypedRequestBody<TriggerDispatchDto>,
+    res: Response
+  ) => {
     const trigger = await Trigger.find({
       user: req.userId,
       name: req.body.name,
@@ -84,7 +93,7 @@ const TriggerController = {
     const data = await generateLighthoseReport(trigger[0].pages);
 
     console.log("Report data:\n", data);
-    
+
     // @ts-expect-error
     const repport = await Report({
       user: req.userId,
@@ -108,12 +117,21 @@ const TriggerController = {
           "Content-Type": "application/json",
           "Content-Length": data.length,
         },
-
       };
 
-      const webhook = http.request(trigger[0].callbackUrl, options, (res) => {
-        console.log(`Done triggering webhook callback statusCode: ${res.statusCode}`);
-      });
+      const isHttps = trigger[0].callbackUrl.includes("https");
+
+      const requestModule = isHttps ? https : http;
+
+      const webhook = requestModule.request(
+        trigger[0].callbackUrl,
+        options,
+        (res) => {
+          console.log(
+            `Done triggering webhook callback statusCode: ${res.statusCode}`
+          );
+        }
+      );
 
       console.log(`Triggering webhook callback to: ${trigger[0].callbackUrl}`);
 
